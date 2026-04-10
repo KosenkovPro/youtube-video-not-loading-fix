@@ -166,6 +166,81 @@ flowchart TD
 
 ---
 
+# ⚙️ DNS Configuration (what to edit and what to set)
+
+🇬🇧 English
+
+Depending on your system, DNS may be managed via `systemd-resolved`, `netplan`, or directly through `resolv.conf`.
+
+---
+
+## 🔹 Option 1: systemd-resolved (recommended)
+
+Edit the file:
+
+`sudo nano /etc/systemd/resolved.conf`
+
+Find or add the following lines:
+
+```
+[Resolve]
+DNS=1.1.1.1 8.8.8.8
+FallbackDNS=1.0.0.1 8.8.4.4
+```
+
+Apply changes:
+
+`sudo systemctl restart systemd-resolved`
+
+Verify:
+
+`resolvectl status`
+
+---
+
+## 🔹 Option 2: Netplan (Ubuntu 18.04+)
+
+Open the configuration file (name may vary):
+
+`sudo nano /etc/netplan/01-netcfg.yaml`
+
+Add DNS servers:
+
+```
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+      nameservers:
+        addresses:
+          - 1.1.1.1
+          - 8.8.8.8
+```
+
+Apply:
+
+`sudo netplan apply`
+
+---
+
+## 🔹 Option 3: resolv.conf (temporary solution)
+
+Edit the file:
+
+`sudo nano /etc/resolv.conf`
+
+Add:
+
+```
+nameserver 1.1.1.1
+nameserver 8.8.8.8
+```
+
+⚠️ Note: this file may be overwritten by the system.
+
+---
+
 ## 🏁 Conclusion
 
 The issue was caused by:

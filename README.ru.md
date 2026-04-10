@@ -1,0 +1,159 @@
+<p align="right">
+  <a href="./README.md">English</a> | <b>Русский</b>
+</p>
+
+# 🛠️ Fix: YouTube открывается, но видео не загружается (проблема DNS / CDN на VPS)
+
+## 📖 Обзор
+
+Этот гайд объясняет, как диагностировать и исправить ситуацию, когда:
+
+* YouTube (`youtube.com`) открывается
+* Но видео **не загружается или не воспроизводится**
+
+---
+
+## 🌐 Как работает DNS
+
+### 🔄 Стандартный процесс DNS-запроса
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant LocalResolver as 127.0.0.53 (systemd-resolved)
+    participant DNS as Внешний DNS (1.1.1.1 / 8.8.8.8)
+    participant Root
+    participant TLD as .com
+    participant Authoritative as NS google.com
+
+    Client->>LocalResolver: Запрос youtube.com
+    LocalResolver->>DNS: Перенаправление запроса
+    DNS->>Root: Запрос к root-серверам
+    Root-->>DNS: Ответ: зона .com
+    DNS->>TLD: Запрос к .com
+    TLD-->>DNS: NS для google.com
+    DNS->>Authoritative: Запрос google.com
+    Authoritative-->>DNS: IP-адрес
+    DNS-->>LocalResolver: Ответ
+    LocalResolver-->>Client: Ответ
+```
+
+---
+
+## 🎥 Как работает YouTube
+
+```mermaid
+flowchart LR
+    A[Клиент] --> B[youtube.com]
+    B --> C[HTML страница]
+
+    A --> D[googlevideo.com]
+    D --> E[Видео (CDN)]
+
+    style B fill:#90caf9
+    style D fill:#ffcc80
+```
+
+👉 Важно:
+
+* `youtube.com` → сайт
+* `googlevideo.com` → видео
+
+---
+
+## ❌ Сценарий ошибки (твой случай)
+
+```mermaid
+flowchart LR
+    A[Клиент] --> B[youtube.com OK]
+    A --> C[googlevideo.com FAIL]
+
+    B --> D[Страница загружается]
+    C --> E[Нет DNS-резолва]
+
+    E --> F[Видео не работает]
+
+    style B fill:#a5d6a7
+    style C fill:#ef9a9a
+    style F fill:#ef5350
+```
+
+---
+
+## 🔍 Причина
+
+Система использовала DNS-серверы провайдера, полученные через DHCP.
+
+Пример:
+
+```text
+85.193.xxx.xxx
+85.193.xxx.xxx
+```
+
+❌ Эти DNS-серверы возвращали некорректные или неполные ответы для CDN-доменов (например, `googlevideo.com`), что нарушало доставку видеоконтента.
+
+---
+
+## ✅ Исправленная схема
+
+```mermaid
+flowchart LR
+    A[Клиент] --> B[systemd-resolved]
+    B --> C[1.1.1.1]
+    B --> D[8.8.8.8]
+
+    C --> E[googlevideo.com OK]
+    D --> F[youtube.com OK]
+
+    E --> G[Видео работает]
+```
+
+---
+
+## 🌍 Почему DNS даёт разные ответы
+
+```mermaid
+flowchart LR
+    A[Клиент] --> B[Cloudflare DNS]
+    A --> C[Google DNS]
+
+    B --> D[Один оптимальный IP]
+    C --> E[Несколько IP]
+
+    D --> F[CDN узел A]
+    E --> G[CDN узлы A,B,C]
+
+    style B fill:#81d4fa
+    style C fill:#ffcc80
+```
+
+---
+
+## 🧠 Ключевая идея
+
+```mermaid
+flowchart TD
+    A[Сайт работает] --> B[Но контент не грузится]
+    B --> C[Проверить CDN домены]
+    C --> D[Проверить DNS]
+    D --> E[Исправить DNS]
+    E --> F[Всё работает]
+```
+
+---
+
+## 🏁 Вывод
+
+Проблема была вызвана:
+
+❌ DNS провайдера ломал резолв CDN
+✔ Исправлено переходом на публичные DNS
+
+После исправления:
+
+* DNS работает корректно
+* CDN доступен
+* Видео YouTube воспроизводится
+
+---

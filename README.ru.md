@@ -48,7 +48,7 @@ flowchart LR
     B --> C[HTML страница]
 
     A --> D[googlevideo.com]
-    D --> E[Видео (CDN)]
+    D --> E[Видео CDN]
 
     style A fill:#0d47a1,stroke:#000000,stroke-width:2px,color:#ffffff
     style C fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff

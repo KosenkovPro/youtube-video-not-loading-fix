@@ -50,8 +50,11 @@ flowchart LR
     A --> D[googlevideo.com]
     D --> E[Видео (CDN)]
 
-    style B fill:#90caf9
-    style D fill:#ffcc80
+    style A fill:#0d47a1,stroke:#000000,stroke-width:2px,color:#ffffff
+    style C fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+    style B fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+    style D fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+    style E fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
 ```
 
 👉 Важно:
@@ -73,9 +76,12 @@ flowchart LR
 
     E --> F[Видео не работает]
 
-    style B fill:#a5d6a7
-    style C fill:#ef9a9a
-    style F fill:#ef5350
+    style A fill:#0d47a1,stroke:#000000,stroke-width:2px,color:#ffffff
+    style B fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+    style D fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+    style C fill:#c62828,stroke:#8e0000,stroke-width:2px,color:#ffffff
+    style E fill:#c62828,stroke:#8e0000,stroke-width:2px,color:#ffffff
+    style F fill:#c62828,stroke:#8e0000,stroke-width:2px,color:#ffffff
 ```
 
 ---
@@ -107,6 +113,16 @@ flowchart LR
     D --> F[youtube.com OK]
 
     E --> G[Видео работает]
+
+    style A fill:#0d47a1,stroke:#000000,stroke-width:2px,color:#ffffff
+    style B fill:#1565c0,stroke:#000000,stroke-width:2px,color:#ffffff
+
+    style C fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+    style D fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+
+    style E fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+    style F fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
+    style G fill:#66bb6a,stroke:#1b5e20,stroke-width:2px,color:#ffffff
 ```
 
 ---
@@ -124,8 +140,15 @@ flowchart LR
     D --> F[CDN узел A]
     E --> G[CDN узлы A,B,C]
 
-    style B fill:#81d4fa
-    style C fill:#ffcc80
+    style A fill:#0d47a1,stroke:#000000,stroke-width:2px,color:#ffffff
+
+    style B fill:#1565c0,stroke:#0d47a1,stroke-width:2px,color:#ffffff
+    style D fill:#1565c0,stroke:#0d47a1,stroke-width:2px,color:#ffffff
+    style F fill:#1565c0,stroke:#0d47a1,stroke-width:2px,color:#ffffff
+
+    style C fill:#ef6c00,stroke:#e65100,stroke-width:2px,color:#ffffff
+    style E fill:#ef6c00,stroke:#e65100,stroke-width:2px,color:#ffffff
+    style G fill:#ef6c00,stroke:#e65100,stroke-width:2px,color:#ffffff
 ```
 
 ---

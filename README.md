@@ -116,10 +116,8 @@ flowchart LR
 
     style A fill:#0d47a1,stroke:#000000,stroke-width:2px,color:#ffffff
     style B fill:#1565c0,stroke:#000000,stroke-width:2px,color:#ffffff
-
     style C fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
     style D fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
-
     style E fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
     style F fill:#2e7d32,stroke:#1b5e20,stroke-width:2px,color:#ffffff
     style G fill:#66bb6a,stroke:#1b5e20,stroke-width:2px,color:#ffffff
